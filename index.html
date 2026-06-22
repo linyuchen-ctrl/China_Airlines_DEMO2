@@ -30,7 +30,9 @@
             background-color: #FCFCFC;
             color: var(--text-main);
             line-height: 1.6;
+            letter-spacing: 2px;         /* 全站字距加大 */
             container-type: inline-size;
+            overflow-x: hidden;          /* 讓左右手繪草等裝飾超出畫面時不產生橫向捲軸 */
         }
 
         .container {
@@ -52,27 +54,22 @@
 
         /* ===== 共用：區塊標題（含左右葉子花飾） ===== */
         .section-head {
-            position: relative;
-            text-align: center;
+            display: flex; align-items: center; justify-content: center;
+            gap: 30px;                    /* 葉子與 title 的間距 */
             margin: 46px 0 26px;
         }
         .section-title {
-            display: inline-block;
-            position: relative; z-index: 2;
             color: var(--primary-blue);
             font-size: 1.7rem;
-            font-weight: 900;
-            letter-spacing: 2px;
+            font-weight: 600;
+            letter-spacing: 5px;
         }
         .section-title .red { color: var(--brand-red); }
-        /* 標題兩側手繪葉子（裝飾，alt="") */
+        /* 標題兩側手繪葉子（裝飾，alt=""）；隨 title 寬度自動貼合 */
         .title-leaf {
-            position: absolute; top: 50%;
-            transform: translateY(-50%);
-            width: 54px; height: auto; pointer-events: none;
+            width: 54px; height: auto; pointer-events: none; flex-shrink: 0;
         }
-        .title-leaf--left  { right: calc(50% + 130px); }
-        .title-leaf--right { left: calc(50% + 130px); transform: translateY(-50%) scaleX(-1); }
+        .title-leaf--right { transform: scaleX(-1); }
 
         /* ============================================================
            1. HERO 主視覺（滿版）
@@ -86,6 +83,7 @@
             aspect-ratio: 843 / 474;     /* ← 換成你 hero_bg.png 的實際比例 */
             background: url("./img/hero_bg.png") center / cover no-repeat,
                         linear-gradient(160deg, #bfe0ef, #7fb8d8);   /* 圖載入前的保險底色 */
+            container-type: inline-size;  /* 讓疊層元素用 cqw 跟著 hero 寬度等比縮放 */
         }
         /* 內層：與 hero 等高，內容收在 1200 並置中（疊圖用 % 定位會跟著縮放） */
         .hero-inner {
@@ -104,7 +102,7 @@
         .hero-logo {
             position: absolute;
             top: 5%; left: 2%;
-            width: 16%; min-width: 150px; max-width: 210px; height: auto;
+            width: 15cqw; height: auto;   /* 跟著 hero 等比 */
             z-index: 5;
         }
 
@@ -112,18 +110,18 @@
         .hero-center {
             position: relative; z-index: 3;
             text-align: center;
-            transform: translateY(-28px);   /* 整塊往上一點 */
+            transform: translateY(-2.4cqw);   /* 整塊往上一點（等比） */
         }
         /* 最上方 · KAGAWA · */
         .hero-kagawa {
             color: var(--primary-blue);
-            font-size: clamp(0.9rem, 1.6vw, 1.2rem);   /* 放大一點 */
-            font-weight: 700; letter-spacing: 4px;
+            font-size: 1.5cqw;   /* 跟著 hero 等比 */
+            font-weight: 700; letter-spacing: 0.4cqw;
             margin-bottom: 2%;
         }
         /* 黃色「直飛高松 ✈」徽章（預留 img 位置） */
         .hero-badge {
-            width: clamp(150px, 20%, 240px); height: auto;   /* 放大一點 */
+            width: 18cqw; height: auto;   /* 跟著 hero 等比 */
             display: block; margin: 0 auto 2.5%;
         }
         .hero-title {
@@ -133,11 +131,11 @@
         }
         .hero-title .red { color: var(--brand-red); }
         /* 改用書法 PNG：把 HTML 的 <h1 class="hero-title"> 換成 <img class="hero-title-img"> */
-        .hero-title-img { width: clamp(320px, 60%, 500px); height: auto; display: block; margin: 0 auto; }
+        .hero-title-img { width: calc(46cqw - 50px); height: auto; display: block; margin: 0 auto; }   /* 跟著 hero 等比，再縮 50px */
         .hero-sub {
             margin-top: 3%;
             color: var(--primary-blue);
-            font-size: calc(clamp(0.85rem, 1.7vw, 1.1rem) + 10px);   /* 放大 10px */
+            font-size: 2cqw;   /* 跟著 hero 等比 */
             font-weight: 700; line-height: 1.6;
         }
         .hero-sub .red { color: var(--brand-red); }
@@ -148,39 +146,55 @@
             left: 50%; bottom: 5%;
             transform: translateX(-50%);
             z-index: 4;
-            display: flex; align-items: center; gap: 38px;
-            background: #fff;
+            display: flex; align-items: center; gap: 3.2cqw;   /* 跟著 hero 等比 */
+            background: #FCFCFC;
             border-radius: 999px;        /* radius 拉滿 = 膠囊 */
-            padding: 12px 42px;
+            padding: 1cqw 3.5cqw;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);   /* 陰影縮小 */
             list-style: none;
             white-space: nowrap;
         }
         .hero-features li {
-            display: flex; flex-direction: column; align-items: center; gap: 6px;
-            color: var(--primary-blue); font-size: 0.9rem; font-weight: 700;
+            display: flex; flex-direction: column; align-items: center; gap: 0.5cqw;
+            color: var(--primary-blue); font-size: 1.05cqw; font-weight: 700;
         }
-        .hero-features img { width: 42px; height: 42px; object-fit: contain; }
+        .hero-features img { width: 3.5cqw; height: 3.5cqw; object-fit: contain; }
 
         /* ============================================================
            2. 高松三大好禮
            ============================================================ */
-        .gifts { position: relative; margin: 50px 0; }
+        .gifts { position: relative; margin: 16px 0 50px; }
         .gifts-head { text-align: center; position: relative; }
         .gifts-eyebrow {
             display: inline-flex; align-items: center; gap: 8px;
-            color: var(--primary-blue); font-size: 1rem; font-weight: 700;
+            color: var(--primary-blue); font-size: calc(1rem + 10px); font-weight: 700;   /* 放大 10px */
         }
         .gifts-title {
-            color: var(--primary-blue); font-size: 2rem; font-weight: 900;
+            color: var(--primary-blue); font-size: calc(2rem + 10px); font-weight: 900;   /* 放大 10px */
             letter-spacing: 2px; margin-top: 2px;
         }
         .gifts-title .red { color: var(--brand-red); }
-        /* 右上「免費贈送！」紅圈徽章 */
+        /* 標題兩側星星（裝飾，alt=""）；右邊左右相反 */
+        .gifts-star {
+            position: absolute; top: 50%;
+            transform: translateY(-50%);
+            width: 56px; height: auto; pointer-events: none; z-index: 2;   /* 放大 10px */
+        }
+        .gifts-star--left  { right: calc(50% + 170px); }
+        .gifts-star--right { left: calc(50% + 170px); transform: translateY(-50%) scaleX(-1); }
+        /* 「免費贈送！」紅圈徽章：疊在 card3 右上角 */
         .gifts-free {
-            position: absolute; top: -6px; right: 0;
+            position: absolute; top: -22px; right: -22px; z-index: 6;
             width: 92px; height: auto; transform: rotate(8deg);
         }
+        /* 手繪草裝飾（預留 img 位置）：分置 card 區左上與右下的留白，落在卡片外側不互相遮擋 */
+        .gifts-grass {
+            position: absolute;
+            width: 110px; height: auto;
+            z-index: 0; pointer-events: none;
+        }
+        .gifts-grass--left  { top: 30px; left: -50px; }                              /* gift 區塊左上 */
+        .gifts-grass--right { bottom: -30px; right: -50px; transform: scale(-1, -1); }  /* gift 區塊右下、上下+左右翻轉 */
 
         .gift-grid {
             display: grid; grid-template-columns: repeat(3, 1fr);
@@ -188,43 +202,54 @@
         }
         .gift-card {
             position: relative;
-            background: #fff; border-radius: 16px;
-            padding: 14px 14px 18px;
-            box-shadow: var(--card-shadow);
+            background: #FCFCFC; border-radius: 18px;
+            padding: 18px 16px 20px;
             text-align: center;
         }
+        /* 卡片黃色外框（離邊 8px 的細線框） */
+        .gift-card::before {
+            content: '';
+            position: absolute; inset: 8px;
+            border: 2px solid var(--yellow-accent);
+            border-radius: 12px;
+            pointer-events: none; z-index: 1;
+        }
         .gift-photo {
+            position: relative; z-index: 2;
             width: 100%; height: 130px; object-fit: cover;
             border-radius: 12px; display: block;
         }
         .gift-num {
-            position: absolute; top: 6px; left: 10px; z-index: 2;
-            width: 40px; height: 40px; border-radius: 50%;
+            position: absolute; top: 6px; left: 10px; z-index: 3;
+            width: 60px; height: 60px; border-radius: 50%;   /* 圓圈再放大 10px */
             display: flex; align-items: center; justify-content: center;
-            color: #fff; font-size: 1rem; font-weight: 900;
-            border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            color: #FCFCFC; font-size: calc(1rem + 10px); font-weight: 900;
+            border: 2px solid #FCFCFC; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
         .gift-card:nth-child(1) .gift-num { background: var(--brand-red); }   /* 01 紅 */
-        .gift-card:nth-child(2) .gift-num { background: var(--green-accent); }/* 02 綠 */
+        .gift-card:nth-child(2) .gift-num { background: #18822E; }            /* 02 綠 */
         .gift-card:nth-child(3) .gift-num { background: var(--light-cyan); }  /* 03 藍 */
+        .gift-card:nth-child(2) .gift-title { color: #18822E; }               /* 02 標題同綠 */
         .gift-title {
+            position: relative; z-index: 2;
             color: var(--primary-blue); font-size: 1.2rem; font-weight: 900;
             line-height: 1.3; margin: 12px 0 6px;
         }
-        .gift-desc { color: var(--text-light); font-size: 0.82rem; line-height: 1.5; }
+        .gift-desc { position: relative; z-index: 2; color: var(--text-light); font-size: 0.82rem; line-height: 1.5; }
+        /* 卡片最下方標籤：黃底藍字 */
         .gift-tag {
+            position: relative; z-index: 2;
             display: inline-block; margin-top: 10px;
-            background: #fdeef0; color: var(--brand-red);
+            background: var(--yellow-accent);   /* 黃底 */
+            color: var(--primary-blue);         /* 藍字 */
             font-size: 0.85rem; font-weight: 700;
             padding: 5px 16px; border-radius: 20px;
         }
-        .gift-card:nth-child(2) .gift-tag { background: #eef7e9; color: #5a9a43; }
-        .gift-card:nth-child(3) .gift-tag { background: #e9f1f8; color: var(--light-cyan); }
 
         .gifts-note {
             display: flex; align-items: center; justify-content: center; gap: 8px;
             margin-top: 22px;
-            color: var(--primary-blue); font-size: 1rem; font-weight: 700;
+            color: var(--primary-blue); font-size: calc(1rem + 10px); font-weight: 700;   /* 放大 10px */
         }
         .gifts-note img { width: 26px; height: auto; }
 
@@ -239,14 +264,14 @@
         .artopen-left { position: relative; }
         .artopen-ribbon {            /* 「NEW 2026」紅色緞帶 */
             display: inline-block;
-            background: var(--brand-red); color: #fff;
+            background: var(--brand-red); color: #FCFCFC;
             font-size: 0.8rem; font-weight: 900; letter-spacing: 1px;
             padding: 5px 14px 5px 12px;
             clip-path: polygon(0 0, 100% 0, 92% 50%, 100% 100%, 0 100%);
             margin-bottom: 14px;
         }
         .artopen-title {
-            color: var(--primary-blue); font-size: 1.9rem; font-weight: 900;
+            color: var(--primary-blue); font-size: calc(1.9rem + 10px); font-weight: 900;   /* 放大 10px */
             line-height: 1.3; margin-bottom: 14px;
         }
         .artopen-title .red { color: var(--brand-red); }
@@ -254,7 +279,7 @@
         .artopen-btn {
             display: inline-flex; align-items: center; gap: 8px;
             margin-top: 18px;
-            background: var(--primary-blue); color: #fff;
+            background: #FFDCE8; color: var(--brand-red);   /* 粉紅底、桃紅字 */
             text-decoration: none; font-weight: 700; font-size: 0.9rem;
             padding: 10px 22px; border-radius: 24px;
             transition: transform 0.2s;
@@ -268,19 +293,25 @@
         }
         .art-card {
             position: relative;
-            background: #fff; border-radius: 12px; overflow: hidden;
+            height: 180px;                /* 圖片滿版的卡片高度 */
+            border-radius: 12px; overflow: hidden;
             box-shadow: var(--box-shadow);
         }
-        .art-photo { width: 100%; height: 130px; object-fit: cover; display: block; }
+        .art-photo {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%; object-fit: cover; display: block;   /* 滿版鋪滿卡片 */
+        }
         .art-island-tag {
-            position: absolute; top: 8px; left: 8px;
-            background: rgba(0,32,91,0.85); color: #fff;
+            position: absolute; top: 8px; left: 8px; z-index: 2;
+            background: rgba(0,32,91,0.85); color: #FCFCFC;
             font-size: 0.72rem; font-weight: 700;
             padding: 3px 10px; border-radius: 12px;
         }
         .art-cap {
-            color: var(--primary-blue); font-size: 0.78rem; font-weight: 500;
-            text-align: center; padding: 8px 6px 10px; line-height: 1.4;
+            position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+            color: #FCFCFC; font-size: 0.78rem; font-weight: 500;
+            text-align: center; padding: 22px 8px 10px; line-height: 1.4;
+            background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0));  /* 底部漸層讓白字清楚 */
         }
         .artopen-disclaimer {
             grid-column: 1 / -1;
@@ -295,12 +326,12 @@
             gap: 16px; margin-bottom: 20px;
         }
         .spot-card {
-            background: #fff; border-radius: 14px; overflow: hidden;
+            background: #FCFCFC; border-radius: 14px; overflow: hidden;
             box-shadow: var(--card-shadow);
         }
         .spot-photo { width: 100%; height: 120px; object-fit: cover; display: block; }
-        .spot-body { padding: 12px 12px 16px; display: flex; gap: 10px; }
-        .spot-icon { width: 34px; height: 34px; object-fit: contain; flex-shrink: 0; }
+        .spot-body { padding: 12px 12px 16px; display: flex; gap: 10px; justify-content: center; align-items: center; }
+        .spot-icon { width: 44px; height: 44px; object-fit: contain; flex-shrink: 0; }   /* 放大 10px */
         .spot-title { color: var(--primary-blue); font-size: 1rem; font-weight: 900; }
         .spot-desc  { color: var(--text-light); font-size: 0.78rem; line-height: 1.5; margin-top: 2px; }
 
@@ -312,15 +343,15 @@
             gap: 18px; margin-bottom: 20px;
         }
         .review-card {
-            background: #fff; border-radius: 16px;
+            background: #FCFCFC; border-radius: 16px;
             padding: 22px 20px;
             box-shadow: var(--card-shadow);
-            display: flex; flex-direction: column; align-items: center;
-            text-align: center;
+            display: flex; flex-direction: row; align-items: center; gap: 14px;
+            text-align: left;
         }
         .review-avatar {
             width: 76px; height: 76px; border-radius: 50%;
-            object-fit: cover; margin-bottom: 10px;
+            object-fit: cover; flex-shrink: 0;
             border: 3px solid #eef1f6;
         }
         .review-handle { color: var(--light-cyan); font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; }
@@ -336,7 +367,7 @@
         }
         .itin-day {
             position: relative;
-            background: #fff; border-radius: 14px;
+            background: #FCFCFC; border-radius: 14px;
             box-shadow: var(--card-shadow);
             padding: 0 0 16px; overflow: hidden;
             display: flex; flex-direction: column;
@@ -351,11 +382,15 @@
         }
         .itin-head {
             text-align: center; padding: 12px 8px;
-            background: var(--day-color, var(--light-cyan));
-            color: #fff;
+            background: transparent;                         /* 上方不要底色 */
+            color: var(--day-color, var(--light-cyan));      /* 文字改主題色 */
         }
         .itin-day-label { font-size: 0.95rem; font-weight: 900; letter-spacing: 1px; }
-        .itin-place { font-size: 1.05rem; font-weight: 900; margin-top: 2px; }
+        .itin-place {
+            display: inline-block; font-size: 1.05rem; font-weight: 900; margin-top: 6px;
+            padding: 4px 16px; border-radius: 999px;        /* radius 拉滿 = 膠囊 */
+            background: color-mix(in srgb, var(--day-color) 14%, #fff);   /* 主題色淺色底 */
+        }
         .itin-body { flex: 1; padding: 14px 14px 0; }
         .itin-list { list-style: none; }
         .itin-list li {
@@ -363,9 +398,11 @@
             font-size: 0.82rem; color: var(--text-main);
             margin-bottom: 8px; line-height: 1.4;
         }
-        .itin-list li svg {
-            position: absolute; left: 0; top: 3px;
-            width: 13px; height: 13px; color: var(--green-accent);
+        .itin-list li svg { display: none; }   /* 勾勾改成點 */
+        .itin-list li::before {
+            content: ''; position: absolute; left: 4px; top: 8px;
+            width: 7px; height: 7px; border-radius: 50%;
+            background: var(--day-color, var(--green-accent));   /* 點＝主題色 */
         }
         .itin-icon { width: 48px; height: auto; align-self: flex-end; margin: 4px 14px 0; }
 
@@ -374,7 +411,7 @@
            ============================================================ */
         .faq-list { display: flex; flex-direction: column; gap: 12px; }
         .faq-item {
-            background: #fff; border-radius: 14px;
+            background: #FCFCFC; border-radius: 14px;
             box-shadow: var(--box-shadow);
             padding: 16px 20px;
             display: grid; grid-template-columns: auto 1fr auto;
@@ -385,7 +422,7 @@
             color: var(--primary-blue); font-size: 1rem; font-weight: 700;
         }
         .q-badge {
-            background: var(--brand-red); color: #fff;
+            background: var(--brand-red); color: #FCFCFC;
             font-size: 0.78rem; font-weight: 700;
             padding: 3px 9px; border-radius: 6px; flex-shrink: 0;
         }
@@ -399,7 +436,7 @@
             position: relative; overflow: hidden;
             border-radius: 20px 20px 0 0;
             background: linear-gradient(120deg, #2f6fb0, #5aa6d6);
-            color: #fff;
+            color: #FCFCFC;
             padding: 30px 36px;
             display: flex; align-items: center; gap: 24px;
             margin-top: 56px;
@@ -420,7 +457,7 @@
 
         .footer-bar {
             background: var(--primary-blue);
-            color: #fff;
+            color: #FCFCFC;
             padding: 18px 36px;
             border-radius: 0 0 20px 20px;
             display: flex; align-items: center; justify-content: center; gap: 20px;
@@ -441,6 +478,7 @@
            RWD
            ============================================================ */
         @media (max-width: 900px) {
+            .gifts-grass { display: none; }   /* 窄螢幕收起左右手繪草 */
             .gift-grid { grid-template-columns: 1fr; }
             .artopen { grid-template-columns: 1fr; }
             .spots-grid { grid-template-columns: repeat(2, 1fr); }
@@ -502,12 +540,17 @@
 
     <!-- ===================== 2. 高松三大好禮 ===================== -->
     <section class="gifts">
+        <!-- 左右手繪草（預留 img 位置；可換成不同的草圖） -->
+        <img class="gifts-grass gifts-grass--left" src="./img/grass.png" alt="">
+        <img class="gifts-grass gifts-grass--right" src="./img/grass.png" alt="">
+
         <div class="gifts-head">
             <div class="gifts-eyebrow">
                 <img src="./img/icon_gift.png" alt="" style="width:24px;">抵達高松立即享有
             </div>
+            <img class="gifts-star gifts-star--left" src="./img/star.png" alt="">
             <div class="gifts-title">高松<span class="red">三大好禮</span></div>
-            <img class="gifts-free" src="./img/badge_free.png" alt="免費贈送">
+            <img class="gifts-star gifts-star--right" src="./img/star.png" alt="">
         </div>
 
         <div class="gift-grid">
@@ -528,6 +571,7 @@
             </div>
 
             <div class="gift-card">
+                <img class="gifts-free" src="./img/badge_free.png" alt="免費贈送">
                 <span class="gift-num">03</span>
                 <img class="gift-photo" src="./img/gift-boat.png" alt="小豆島來回船票">
                 <h3 class="gift-title">小豆島<br>來回船票</h3>
@@ -641,18 +685,24 @@
         <div class="reviews-grid">
             <div class="review-card">
                 <img class="review-avatar" src="./img/avatar-1.png" alt="">
-                <div class="review-handle">@bts890829</div>
-                <p class="review-text">高松的景緻和氛圍很好拍，這趟總感受又好拍照，三大好禮超實用！下次還想再去小豆島住一晚。</p>
+                <div class="review-body">
+                    <div class="review-handle">@bts890829</div>
+                    <p class="review-text">高松的景緻和氛圍很好拍，這趟總感受又好拍照，三大好禮超實用！下次還想再去小豆島住一晚。</p>
+                </div>
             </div>
             <div class="review-card">
                 <img class="review-avatar" src="./img/avatar-2.png" alt="">
-                <div class="review-handle">@min_travel_diary</div>
-                <p class="review-text">最喜歡直島的藝術氛圍，走在島上像在看藝術散步，真的會讓人放慢腳步。</p>
+                <div class="review-body">
+                    <div class="review-handle">@min_travel_diary</div>
+                    <p class="review-text">最喜歡直島的藝術氛圍，走在島上像在看藝術散步，真的會讓人放慢腳步。</p>
+                </div>
             </div>
             <div class="review-card">
                 <img class="review-avatar" src="./img/avatar-3.png" alt="">
-                <div class="review-handle">@coffee_and_journey</div>
-                <p class="review-text">直飛高松真的省很多時間，4天行程剛剛好，景點和美食都很滿足，推薦給第一次去香川的朋友。</p>
+                <div class="review-body">
+                    <div class="review-handle">@coffee_and_journey</div>
+                    <p class="review-text">直飛高松真的省很多時間，4天行程剛剛好，景點和美食都很滿足，推薦給第一次去香川的朋友。</p>
+                </div>
             </div>
         </div>
     </section>
@@ -660,15 +710,15 @@
     <!-- ===================== 6. 4天3夜 推薦行程 ===================== -->
     <section>
         <div class="section-head">
-            <img src="./img/icon_camera.png" alt="" class="title-leaf title-leaf--left" style="width:42px;">
+            <img src="./img/leaf.png" alt="" class="title-leaf title-leaf--left">
             <h2 class="section-title">4天3夜 推薦行程</h2>
-            <img src="./img/icon_camera.png" alt="" class="title-leaf title-leaf--right" style="width:42px;">
+            <img src="./img/leaf.png" alt="" class="title-leaf title-leaf--right">
         </div>
 
         <div class="itinerary-frame">
             <div class="itinerary-grid">
-                <div class="itin-day">
-                    <div class="itin-head" style="--day-color:#2F60A8;">
+                <div class="itin-day" style="--day-color:#2F60A8;">
+                    <div class="itin-head">
                         <div class="itin-day-label">DAY 1</div>
                         <div class="itin-place">高松市區</div>
                     </div>
@@ -682,8 +732,8 @@
                     <img class="itin-icon" src="./img/itin-icon-1.png" alt="">
                 </div>
 
-                <div class="itin-day">
-                    <div class="itin-head" style="--day-color:#21501D;">
+                <div class="itin-day" style="--day-color:#21501D;">
+                    <div class="itin-head">
                         <div class="itin-day-label">DAY 2</div>
                         <div class="itin-place">小豆島一日遊</div>
                     </div>
@@ -697,8 +747,8 @@
                     <img class="itin-icon" src="./img/itin-icon-2.png" alt="">
                 </div>
 
-                <div class="itin-day">
-                    <div class="itin-head" style="--day-color:#F9390E;">
+                <div class="itin-day" style="--day-color:#F9390E;">
+                    <div class="itin-head">
                         <div class="itin-day-label">DAY 3</div>
                         <div class="itin-place">豐島 + 女木島</div>
                     </div>
@@ -712,8 +762,8 @@
                     <img class="itin-icon" src="./img/itin-icon-3.png" alt="">
                 </div>
 
-                <div class="itin-day">
-                    <div class="itin-head" style="--day-color:#E75186;">
+                <div class="itin-day" style="--day-color:#E75186;">
+                    <div class="itin-head">
                         <div class="itin-day-label">DAY 4</div>
                         <div class="itin-place">高松散策・回程</div>
                     </div>
