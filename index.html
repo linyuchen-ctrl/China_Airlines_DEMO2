@@ -63,6 +63,7 @@
             font-size: 1.7rem;
             font-weight: 600;
             letter-spacing: 5px;
+            text-align: center;   /* 換行時也置中 */
         }
         .section-title .red { color: var(--brand-red); }
         /* 標題兩側手繪葉子（裝飾，alt=""）；隨 title 寬度自動貼合 */
@@ -406,7 +407,6 @@
             width: 7px; height: 7px; border-radius: 50%;
             background: var(--day-color, var(--green-accent));   /* 點＝主題色 */
         }
-        .itin-icon { width: 58px; height: auto; align-self: flex-end; margin: 4px 14px 0; }   /* 放大 10px */
 
         /* ============================================================
            7. FAQ
@@ -438,8 +438,8 @@
             position: relative; overflow: hidden;
             background: linear-gradient(120deg, #2f6fb0, #5aa6d6);
             color: #FCFCFC;
-            padding: 40px 46px;
-            display: flex; align-items: center; gap: 50px;
+            padding: 40px 100px;
+            display: flex; align-items: center; gap: 200px;
             margin-top: 56px;
         }
         /* 飛機：滿版 footer 底圖 */
@@ -464,16 +464,14 @@
             background: var(--primary-blue);
             color: #FCFCFC;
             padding: 18px 36px;
-            border-radius: 0 0 20px 20px;
             display: flex; align-items: center; justify-content: center; gap: 20px;
-            margin-bottom: 20px;
         }
-        .footer-bar-text { font-size: 1.15rem; font-weight: 700; }
+        .footer-bar-text { font-size: calc(1.15rem + 10px); font-weight: 700; }   /* 放大 10px */
         .footer-btn {
             display: inline-flex; align-items: center; gap: 8px;
             background: var(--yellow-accent); color: var(--primary-blue);
-            text-decoration: none; font-weight: 900; font-size: 1.05rem;
-            padding: 12px 28px; border-radius: 30px;
+            text-decoration: none; font-weight: 900; font-size: calc(1.05rem + 10px);   /* 放大 10px */
+            padding: 12px 28px; border-radius: 999px;   /* radius 拉滿 = 膠囊 */
             box-shadow: 0 4px 12px rgba(0,0,0,0.25);
             transition: transform 0.2s;
         }
@@ -735,7 +733,6 @@
                         </ul>
                         <img class="itin-side-icon" src="./img/itin-side-1.png" alt="">
                     </div>
-                    <img class="itin-icon" src="./img/itin-icon-1.png" alt="">
                 </div>
 
                 <div class="itin-day" style="--day-color:#21501D;">
@@ -751,7 +748,6 @@
                         </ul>
                         <img class="itin-side-icon" src="./img/itin-side-2.png" alt="">
                     </div>
-                    <img class="itin-icon" src="./img/itin-icon-2.png" alt="">
                 </div>
 
                 <div class="itin-day" style="--day-color:#F9390E;">
@@ -767,7 +763,6 @@
                         </ul>
                         <img class="itin-side-icon" src="./img/itin-side-3.png" alt="">
                     </div>
-                    <img class="itin-icon" src="./img/itin-icon-3.png" alt="">
                 </div>
 
                 <div class="itin-day" style="--day-color:#E75186;">
@@ -783,7 +778,6 @@
                         </ul>
                         <img class="itin-side-icon" src="./img/itin-side-4.png" alt="">
                     </div>
-                    <img class="itin-icon" src="./img/itin-icon-4.png" alt="">
                 </div>
             </div>
         </div>
