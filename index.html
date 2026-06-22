@@ -363,7 +363,7 @@
         .itinerary-frame { position: relative; padding: 14px 10px; }
         .itinerary-grid {
             display: grid; grid-template-columns: repeat(4, 1fr);
-            gap: 46px;
+            gap: 24px;                    /* 卡片間距縮小 */
         }
         .itin-day {
             position: relative;
@@ -391,8 +391,10 @@
             padding: 4px 16px; border-radius: 999px;        /* radius 拉滿 = 膠囊 */
             background: color-mix(in srgb, var(--day-color) 14%, #fff);   /* 主題色淺色底 */
         }
-        .itin-body { flex: 1; padding: 14px 14px 0; }
-        .itin-list { list-style: none; }
+        .itin-body { flex: 1; padding: 14px 14px 0; display: flex; align-items: center; gap: 10px; }
+        .itin-list { list-style: none; flex: 1; }
+        /* 內文右側預留 icon 位置 */
+        .itin-side-icon { width: 64px; height: 64px; object-fit: contain; flex-shrink: 0; align-self: flex-end; }   /* 放大、貼底 */
         .itin-list li {
             position: relative; padding-left: 20px;
             font-size: 0.82rem; color: var(--text-main);
@@ -404,7 +406,7 @@
             width: 7px; height: 7px; border-radius: 50%;
             background: var(--day-color, var(--green-accent));   /* 點＝主題色 */
         }
-        .itin-icon { width: 48px; height: auto; align-self: flex-end; margin: 4px 14px 0; }
+        .itin-icon { width: 58px; height: auto; align-self: flex-end; margin: 4px 14px 0; }   /* 放大 10px */
 
         /* ============================================================
            7. FAQ
@@ -414,7 +416,7 @@
             background: #FCFCFC; border-radius: 14px;
             box-shadow: var(--box-shadow);
             padding: 16px 20px;
-            display: grid; grid-template-columns: auto 1fr auto;
+            display: grid; grid-template-columns: 340px 1fr auto;   /* Q 欄固定寬，A 都對齊齊左 */
             align-items: center; gap: 16px;
         }
         .faq-q {
@@ -422,7 +424,7 @@
             color: var(--primary-blue); font-size: 1rem; font-weight: 700;
         }
         .q-badge {
-            background: var(--brand-red); color: #FCFCFC;
+            background: var(--primary-blue); color: #FCFCFC;
             font-size: 0.78rem; font-weight: 700;
             padding: 3px 9px; border-radius: 6px; flex-shrink: 0;
         }
@@ -728,6 +730,7 @@
                             <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5 L6.5 12 L13 4"/></svg>栗林公園</li>
                             <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5 L6.5 12 L13 4"/></svg>高松商店街</li>
                         </ul>
+                        <img class="itin-side-icon" src="./img/itin-side-1.png" alt="">
                     </div>
                     <img class="itin-icon" src="./img/itin-icon-1.png" alt="">
                 </div>
@@ -743,6 +746,7 @@
                             <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5 L6.5 12 L13 4"/></svg>橄欖公園</li>
                             <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5 L6.5 12 L13 4"/></svg>藝術作品巡禮</li>
                         </ul>
+                        <img class="itin-side-icon" src="./img/itin-side-2.png" alt="">
                     </div>
                     <img class="itin-icon" src="./img/itin-icon-2.png" alt="">
                 </div>
@@ -758,6 +762,7 @@
                             <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5 L6.5 12 L13 4"/></svg>海景咖啡廳</li>
                             <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5 L6.5 12 L13 4"/></svg>港口散策</li>
                         </ul>
+                        <img class="itin-side-icon" src="./img/itin-side-3.png" alt="">
                     </div>
                     <img class="itin-icon" src="./img/itin-icon-3.png" alt="">
                 </div>
@@ -773,6 +778,7 @@
                             <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5 L6.5 12 L13 4"/></svg>高松港散步</li>
                             <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5 L6.5 12 L13 4"/></svg>伴手禮選購</li>
                         </ul>
+                        <img class="itin-side-icon" src="./img/itin-side-4.png" alt="">
                     </div>
                     <img class="itin-icon" src="./img/itin-icon-4.png" alt="">
                 </div>
